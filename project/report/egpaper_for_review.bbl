@@ -1,0 +1,68 @@
+\begin{thebibliography}{10}\itemsep=-1pt
+
+\bibitem{Bishop2006}
+C.~Bishop.
+\newblock {\em {Pattern Recognition and Machine Learning}}.
+\newblock Springer, 2006.
+
+\bibitem{chapelle2010semi}
+O.~Chapelle, B.~Sch\"{o}lkopf, and A.~Zien.
+\newblock {\em {Semi-Supervised Learning}}.
+\newblock Adaptive Computation and Machine Learning. Mit Press, 2010.
+
+\bibitem{Kibriya:2004:MNB:2146834.2146882}
+A.~M. Kibriya, E.~Frank, B.~Pfahringer, and G.~Holmes.
+\newblock {Multinomial Naive Bayes for Text Categorization Revisited}.
+\newblock In {\em Proceedings of the 17th Australian Joint Conference on
+  Advances in Artificial Intelligence}, AI'04, pages 488--499, Berlin,
+  Heidelberg, 2004. Springer-Verlag.
+
+\bibitem{Lang95}
+K.~Lang.
+\newblock {Newsweeder: Learning to Filter Netnews}.
+\newblock In {\em Proceedings of the Twelfth International Conference on
+  Machine Learning}, pages 331--339, 1995.
+
+\bibitem{McCallum98acomparison}
+A.~McCallum and K.~Nigam.
+\newblock {A Comparison of Event Models for Naive Bayes Text Classification}.
+\newblock In {\em AAAI-98 Workshop on Learning for Text Categorization}, pages
+  41--48. AAAI Press, 1998.
+
+\bibitem{Nigam2010}
+K.~Nigam, A.~K. McCallum, and T.~Mitchell.
+\newblock {Semi-Supervised Text Classification Using EM}.
+\newblock In {\em Semi-Supervised Learning}, pages 1--24. 2010.
+
+\bibitem{Nigam2000}
+K.~Nigam, A.~K. McCallum, S.~Thrun, and T.~Mitchell.
+\newblock {Text Classification from Labeled and Unlabeled Documents using EM}.
+\newblock {\em Machine Learning - Special Issue on Information Retrieval},
+  39(2-3):103--134, 2000.
+
+\bibitem{Rennie03tacklingthe}
+J.~D.~M. Rennie, L.~Shih, J.~Teevan, and D.~R. Karger.
+\newblock {Tackling the Poor Assumptions of Naive Bayes Text Classifiers}.
+\newblock In {\em In Proceedings of the Twentieth International Conference on
+  Machine Learning}, pages 616--623, 2003.
+
+\bibitem{Su2011}
+J.~Su, J.~Sayyad-Shirabad, and S.~Matwin.
+\newblock {Large Scale Text Classification using Semi-Supervised Multinomial
+  Naive Bayes}.
+\newblock In {\em Proceedings of the 28th International Conference on Machine
+  Learning, ICML 2011}, pages 97--104, 2011.
+
+\bibitem{zhu05survey}
+X.~Zhu.
+\newblock {Semi-Supervised Learning Literature Survey}.
+\newblock Technical Report 1530, Computer Sciences, University of Wisconsin
+  -Madison, 2008.
+
+\bibitem{zhu2009introduction}
+X.~Zhu and A.~Goldberg.
+\newblock {\em {Introduction to Semi-Supervised Learning}}.
+\newblock Synthesis Lectures on Artificial Intelligence and Machine Learning.
+  Morgan \& Claypool Publishers, 2009.
+
+\end{thebibliography}

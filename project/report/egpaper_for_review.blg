@@ -1,0 +1,47 @@
+This is BibTeX, Version 0.99c (TeX Live 2009/Debian)
+The top-level auxiliary file: egpaper_for_review.aux
+The style file: ieee.bst
+Database file #1: egpaper_for_review.bib
+Warning--empty publisher in Nigam2010
+You've used 11 entries,
+            2120 wiz_defined-function locations,
+            577 strings with 5869 characters,
+and the built_in function-call counts, 4161 in all, are:
+= -- 422
+> -- 170
+< -- 7
++ -- 67
+- -- 56
+* -- 255
+:= -- 653
+add.period$ -- 38
+call.type$ -- 11
+change.case$ -- 58
+chr.to.int$ -- 0
+cite$ -- 12
+duplicate$ -- 187
+empty$ -- 343
+format.name$ -- 56
+if$ -- 921
+int.to.chr$ -- 0
+int.to.str$ -- 11
+missing$ -- 13
+newline$ -- 58
+num.names$ -- 22
+pop$ -- 81
+preamble$ -- 1
+purify$ -- 50
+quote$ -- 0
+skip$ -- 135
+stack$ -- 0
+substring$ -- 246
+swap$ -- 61
+text.length$ -- 7
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 38
+warning$ -- 1
+while$ -- 42
+width$ -- 13
+write$ -- 126
+(There was 1 warning)
