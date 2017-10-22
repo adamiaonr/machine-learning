@@ -110,7 +110,7 @@ if __name__ == "__main__":
     # prediction type : 
     #   0 - dist. to mean, 
     #   1 - mean of euclidean dist. to training samples (as asked in ex1)
-    prediction_type = 1
+    prediction_type = 0
 
     if prediction_type == 0:
         print("using euclidean dist. to mean")
