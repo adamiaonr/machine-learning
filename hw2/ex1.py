@@ -53,14 +53,17 @@ if __name__ == "__main__":
     w = gradient_descent_costs(X, rocket_heights[:,1], costs, w, 0.000001, 100000)
     print("w for 1 cost : %s" % (w))
 
-    fig = plt.figure()
+    fig = plt.figure(figsize = (6, 5))
     ax = fig.add_subplot(111)
 
+    ax.xaxis.grid(True)
+    ax.yaxis.grid(True)
+
     # plot original data
-    ax.scatter(rocket_heights[:,0], rocket_heights[:,1], color = 'blue', marker = 'o')
+    ax.scatter(rocket_heights[:,0], rocket_heights[:,1], color = 'blue', marker = 'o', label = 'training data')
     # plot model output
     x, y = get_ys(w)
-    ax.scatter(x, y, color = 'red', marker = '.', s = 5)
+    ax.scatter(x, y, color = 'red', marker = '.', s = 5, label = 'orig. cost')
 
     ## find w w/ other costs which 'force' point (10.0, 1073.0)
     # initialize w to 0s
@@ -70,7 +73,11 @@ if __name__ == "__main__":
     print("w for other cost : %s" % (w))
     # plot model output
     x, y = get_ys(w)
-    ax.scatter(x, y, color = 'green', marker = '.', s = 5)
+    ax.scatter(x, y, color = 'green', marker = '.', s = 5, label = 'high cost on x_2')
+
+    ax.legend(fontsize = 12, ncol = 1, loc='lower center')
+    ax.set_xlabel("horizontal dist. (m)")
+    ax.set_ylabel("altitude (m)")
 
     fig.subplots_adjust(left=None, bottom=None, right=None, top=None, wspace=0.3, hspace=None)
     plt.savefig("ex1.pdf", bbox_inches = 'tight', format = 'pdf')

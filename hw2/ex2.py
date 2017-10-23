@@ -37,13 +37,13 @@ def train(training_data):
     for height in training_data:
         height_hist[height[0]][int(height[1] / 10.0)] += 1.0
 
-    print("male counts :")
-    for h in height_hist[1]:
-        print("[%.1f - %.1f[ cm : %d" % ((h * 10.0), (h * 10.0) + 10.0, height_hist[1][h]))
+    # print("male counts :")
+    # for h in height_hist[1]:
+    #     print("[%.1f - %.1f[ cm : %d" % ((h * 10.0), (h * 10.0) + 10.0, height_hist[1][h]))
 
-    print("female counts :")
-    for h in height_hist[2]:
-        print("[%.1f - %.1f[ cm : %d" % ((h * 10.0), (h * 10.0) + 10.0, height_hist[2][h]))
+    # print("female counts :")
+    # for h in height_hist[2]:
+    #     print("[%.1f - %.1f[ cm : %d" % ((h * 10.0), (h * 10.0) + 10.0, height_hist[2][h]))
 
     # class conditional probabilities (on weight, using Parzen Window method)
     v = training_data[training_data[:,0] == 1][:,2]
@@ -57,20 +57,57 @@ def train(training_data):
     ax1 = fig.add_subplot(131)
 
     x = np.arange(min(training_data[:,2]), max(training_data[:,2]), 0.1)
-    ax1.plot(x, np.exp(prob_weight_given_gender[1].score_samples(x.reshape(x.size, 1))), color = 'blue', linewidth = 1.5)
-    ax1.plot(x, np.exp(prob_weight_given_gender[2].score_samples(x.reshape(x.size, 1))), color = 'red', linewidth = 1.5)
+    ax1.plot(x, np.exp(prob_weight_given_gender[1].score_samples(x.reshape(x.size, 1))), color = 'blue', linewidth = 1.5, label = 'M')
+    ax1.plot(x, np.exp(prob_weight_given_gender[2].score_samples(x.reshape(x.size, 1))), color = 'red', linewidth = 1.5, label = 'F')
+
+    ax1.set_title('P(W|C)')
+
+    ax1.xaxis.grid(True)
+    ax1.yaxis.grid(True)
+
+    ax1.legend(fontsize = 12, ncol = 1, loc='upper right')
+    ax1.set_xlabel("weight (kg)")
+    x = np.arange(int(min(training_data[:,2]) / 10.0) * 10.0, int(max(training_data[:,2]) / 10.0) * 11.0, 10.0)
+    ax1.set_xlim(x[0] - 5, x[-1] + 5)
+    ax1.set_xticks(x)
+    ax1.set_ylabel("p(weight)")
 
     # plot height distributions
     ax2 = fig.add_subplot(132)
     ax3 = fig.add_subplot(133)
 
+    x_ticks = []
     for i in np.arange(int(min(training_data[:,1]) / 10.0), int(max(training_data[:,1]) / 10.0) + 1, 1):
         
+        x_ticks.append((float(i) * 10.0))
+
         if i in height_hist[1]:
             ax2.bar((float(i) * 10.0), height_hist[1][i] / prior[1], alpha = 0.55, width = 10.0, color = 'blue')
 
         if i in height_hist[2]:
             ax3.bar((float(i) * 10.0), height_hist[2][i] / prior[2], alpha = 0.55, width = 10.0, color = 'red')
+
+    x_ticks.append(x_ticks[-1] + 10.0)
+
+    ax2.xaxis.grid(True)
+    ax2.yaxis.grid(True)
+    ax3.xaxis.grid(True)
+    ax3.yaxis.grid(True)
+
+    ax2.set_title('P(H|M)')
+    ax3.set_title('P(H|F)')
+
+    ax2.set_xlabel("height (cm)")
+    ax3.set_xlabel("height (cm)")
+
+    ax2.set_xlim(x_ticks[0] - 5, x_ticks[-1] + 5)
+    ax3.set_xlim(x_ticks[0] - 5, x_ticks[-1] + 5)
+
+    ax2.set_xticks(x_ticks)
+    ax3.set_xticks(x_ticks)
+
+    ax2.set_ylabel("p(height)")
+    ax3.set_ylabel("p(height)")
 
     fig.subplots_adjust(left = None, bottom = None, right = None, top = None, wspace = 0.3, hspace = None)
     plt.savefig("ex2-weight-distributions.pdf", bbox_inches = 'tight', format = 'pdf')
