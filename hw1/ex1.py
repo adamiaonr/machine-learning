@@ -94,10 +94,11 @@ def meanPrediction(data_class_1, data_class_2, data_unknown_class):
     # for each test point, calculate euclidean distance to each training point, use mean of
     # distances to classify
     predictions_2 = []
-    for data_u in data_unknown_class:
+    for i, data_u in enumerate(data_unknown_class):
         # data_u_v = [data_u * np.ones((len(data_class_1), dim)), data_u * np.ones((len(data_class_2), dim))]
         # distances = [get_euclidean_norm(data_u_v[0] - data_class_1), get_euclidean_norm(data_u_v[1] - data_class_2)]
         distances = [get_euclidean_norm(data_class_1 - data_u), get_euclidean_norm(data_class_2 - data_u)]
+        # print("(%d) distances = %.3f / %.3f" % (i, np.mean(distances[0], axis = 0), np.mean(distances[1], axis = 0)))
         # prediction for sample data_u calculated from the mean of distances
         # print("mean euclidean dist : %f, %f" % (np.mean(distances[0], axis = 0), np.mean(distances[1], axis = 0)))
         predictions = np.mean(distances[0], axis = 0) - np.mean(distances[1], axis = 0)
@@ -110,7 +111,7 @@ if __name__ == "__main__":
     # prediction type : 
     #   0 - dist. to mean, 
     #   1 - mean of euclidean dist. to training samples (as asked in ex1)
-    prediction_type = 0
+    prediction_type = 1
 
     if prediction_type == 0:
         print("using euclidean dist. to mean")

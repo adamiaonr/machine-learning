@@ -18,14 +18,13 @@ def gradient_descent_costs(X, y, costs, w, alpha, num_iters):
 
     # add column of 1s to X for w_0
     X = np.vstack((np.ones(len(X)), X.T)).T
-
     # iteratively update w num_iters times
     for i in xrange(num_iters):
         w = w + alpha * np.dot(costs * (y - np.dot(w,X.T)), X)
 
     return w
 
-def get_ys(w):
+def get_ys(w, degree):
 
     # plot lms regression results
     x = np.arange(0, 30, 0.1)
@@ -49,6 +48,10 @@ if __name__ == "__main__":
     ## find w w/ original costs
     # initialize w to 0s
     w = np.zeros(X.shape[1] + 1)
+
+    print(w)
+    print(X)
+
     costs = rocket_heights[:,2]
     w = gradient_descent_costs(X, rocket_heights[:,1], costs, w, 0.000001, 100000)
     print("w for 1 cost : %s" % (w))
@@ -62,7 +65,7 @@ if __name__ == "__main__":
     # plot original data
     ax.scatter(rocket_heights[:,0], rocket_heights[:,1], color = 'blue', marker = 'o', label = 'training data')
     # plot model output
-    x, y = get_ys(w)
+    x, y = get_ys(w, degree)
     ax.scatter(x, y, color = 'red', marker = '.', s = 5, label = 'orig. cost')
 
     ## find w w/ other costs which 'force' point (10.0, 1073.0)
@@ -72,7 +75,7 @@ if __name__ == "__main__":
     w = gradient_descent_costs(X, rocket_heights[:,1], costs, w, 0.000001, 100000)
     print("w for other cost : %s" % (w))
     # plot model output
-    x, y = get_ys(w)
+    x, y = get_ys(w, degree)
     ax.scatter(x, y, color = 'green', marker = '.', s = 5, label = 'high cost on x_2')
 
     ax.legend(fontsize = 12, ncol = 1, loc='lower center')

@@ -82,10 +82,12 @@ def train(training_data):
         x_ticks.append((float(i) * 10.0))
 
         if i in height_hist[1]:
-            ax2.bar((float(i) * 10.0), height_hist[1][i] / prior[1], alpha = 0.55, width = 10.0, color = 'blue')
+            print("P(h = [%.2f-%.2f]|M) = %.6f" % (float(i) * 10.0, float(i + 1) * 10.0, height_hist[1][i] / (10.0 * prior[1])))
+            ax2.bar((float(i) * 10.0), height_hist[1][i] / (10.0 * prior[1]), alpha = 0.55, width = 10.0, color = 'blue')
 
         if i in height_hist[2]:
-            ax3.bar((float(i) * 10.0), height_hist[2][i] / prior[2], alpha = 0.55, width = 10.0, color = 'red')
+            print("P(h = [%.2f-%.2f]|F) = %.6f" % (float(i) * 10.0, float(i + 1) * 10.0, height_hist[2][i] / (10.0 * prior[2])))
+            ax3.bar((float(i) * 10.0), height_hist[2][i] / (10.0 * prior[2]), alpha = 0.55, width = 10.0, color = 'red')
 
     x_ticks.append(x_ticks[-1] + 10.0)
 
@@ -116,6 +118,7 @@ def train(training_data):
 
 def prob_weight(w, gender, prob_weight_given_gender):
     # class-conditional prob P(w|G)
+    print("P(w = %.3f|%d) = %.5f" % (w, gender, np.exp(prob_weight_given_gender[gender].score_samples(w))))
     return np.exp(prob_weight_given_gender[gender].score_samples(w))
 
 def prob_height(h, gender, height_hist, prior):
@@ -126,7 +129,8 @@ def prob_height(h, gender, height_hist, prior):
         return 0.0
     else:
         # class-conditional prob P(h|G)
-        return (height_hist[gender][bin] / prior[gender])
+        print("P(h = %.3f|%d) = %.5f" % (h, gender, (height_hist[gender][bin] / (10.0 * prior[gender]))))
+        return (height_hist[gender][bin] / (10.0 * prior[gender]))
 
 def classify(training_data, test_data):
 
@@ -139,8 +143,9 @@ def classify(training_data, test_data):
         prob_male   = (prob_height(td[0], 1, height_hist, prior) * prob_weight(td[1], 1, prob_weight_given_gender) * (prior[1] / prior[3]))
         prob_female = (prob_height(td[0], 2, height_hist, prior) * prob_weight(td[1], 2, prob_weight_given_gender) * (prior[2] / prior[3]))
 
-        print("\tP(M|w = %.1f, h = %.1f) ~ %.4f" % (td[1], td[0], prob_male))
-        print("\tP(F|w = %.1f, h = %.1f) ~ %.4f" % (td[1], td[0], prob_female))
+        print("\tP(M|w = %.1f, h = %.1f) ~ %.6f" % (td[1], td[0], prob_male))
+        print("\tP(F|w = %.1f, h = %.1f) ~ %.6f" % (td[1], td[0], prob_female))
+        print("\n")
 
         if (prob_male > prob_female):
             y.append(1)
@@ -159,3 +164,10 @@ if __name__ == "__main__":
     print(test_data)
     y = classify(training_data, test_data)
     print(y)
+
+    # 2.c)
+    prior, height_hist, prob_weight_given_gender = train(training_data)
+    x = [165, 80]
+    print("P(h = %.3f|M) = %.10f" % (x[0], (height_hist[1][int(x[0] / 10.0)] / (10.0 * prior[1]))))
+    print("P(w = %.3f|M) = %.10f" % (x[1], np.exp(prob_weight_given_gender[1].score_samples(x[1]))))
+    print("P([%.3f, %.3f]|M) : %.10f" % (x[0], x[1], (height_hist[1][int(x[0] / 10.0)] / prior[1]) * np.exp(prob_weight_given_gender[1].score_samples(x[1]))))

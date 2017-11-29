@@ -61,4 +61,6 @@ if __name__ == "__main__":
     w = regression(training_data_linear[:,0], training_data_linear[:,1], 1)
 
     print(w)
-    print(predict([1.0, 2.0, 8.0, 7.0, 54.0], w, min_charge_time, max_batt_runtime))
+    charging_times = [1.0, 2.0, 3.5, 4.0, 5.0, 8.0, 7.0, 54.0]
+    print("charging times = %s" % (charging_times))
+    print(predict(charging_times, w, min_charge_time, max_batt_runtime))
