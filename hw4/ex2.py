@@ -16,6 +16,7 @@ import cvxopt
 import itertools
 
 from sklearn.svm import SVC
+from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 
 from collections import defaultdict
@@ -31,6 +32,14 @@ if __name__ == "__main__":
     data = np.loadtxt(open("wine.txt", "rb"), delimiter=",", skiprows = 0)
     x = data[:, 1:]
     y = data[:, 0]
+
+    # FIXME: one student actually pointed me to 
+    # data standardization, i.e. making x w/ zero mean and 
+    # unity variance
+    x = StandardScaler().fit_transform(x)
+
+    print(np.mean(x))
+    print(np.std(x))
 
     # calculate co-variance matrix of x
     S = np.cov(x.T)

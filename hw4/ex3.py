@@ -16,6 +16,7 @@ import cvxopt
 import itertools
 
 from sklearn import manifold
+from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 
 from collections import defaultdict
@@ -40,7 +41,9 @@ if __name__ == "__main__":
 
     ax.set_title("""t-SNE""")
 
-    tsne = manifold.TSNE(n_components = 2)
+    print(x)
+
+    tsne = manifold.TSNE(n_components = 2, init = 'pca', random_state = 0)
     mf = tsne.fit_transform(x)
     mf = pd.DataFrame(mf, columns = ['c1', 'c2'])
 
@@ -87,7 +90,7 @@ if __name__ == "__main__":
 
     ax.set_title("""LLE""")
 
-    lle = manifold.LocallyLinearEmbedding(n_neighbors = 6, n_components = 2, method = 'standard')
+    lle = manifold.LocallyLinearEmbedding(n_neighbors = 12, n_components = 2, method = 'standard')
     lle.fit(x)
     # transform:
     #   - get k neighbors of new x

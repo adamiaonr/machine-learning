@@ -24,6 +24,8 @@ from collections import OrderedDict
 from prettytable import PrettyTable
 
 # FIXME: for some reason, this isn't working. needs revision.
+#   - try to standardize the data
+#   - e.g. https://towardsdatascience.com/effect-of-feature-standardization-on-linear-support-vector-machines-13213765b812
 class basic_svm:
 
     def __init__(self, d = 2, p = 2, C = 0.25):
