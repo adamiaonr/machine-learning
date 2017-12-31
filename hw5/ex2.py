@@ -30,7 +30,7 @@ if __name__ == "__main__":
 
     # hmm model:
     #   - hidden states: climb (1), didn't climb (0)
-    #   - observations : injured (1), not injured (0)
+    #   - observations : injured (0), not injured (1)
     #   - transition probabilities (between hidden states)
     #       1 0
     #     1 x y
@@ -44,12 +44,12 @@ if __name__ == "__main__":
                     [0.1, 0.9]])
 
     # solving the problem:                              S M T W
-    #   - we know that the sequence of observations is: *,1,1,0
+    #   - we know that the sequence of observations is: *,0,0,1
     #   - note that we don't know if he got injured on sunday, so 
-    #     there are 2 alternative observation sequences: 0,1,1,0 and 1,1,1,0
+    #     there are 2 alternative observation sequences: 0,0,0,1 and 1,0,0,1
     
     #   - we want to know the prob of climbing on wed, i.e. 
-    #     P(y_(wed)^(climb) = 1 | *,1,1,0)
+    #     P(y_(wed)^(climb) = 1 | *,0,0,1)
     #   - according to slide 40/60, P(y_t^k = 1 | X) = P(y_t^k = 1, X) / P(x) 
     #                                                = (alpha_t^k * beta_t^k) / P(X)
     #
