@@ -65,12 +65,6 @@ if __name__ == "__main__":
 
     iso = manifold.Isomap(n_neighbors = 6, n_components = 2)
     iso.fit(x)
-    # transform:
-    #   - get k neighbors of new x
-    #   - get distances to k neighbors + distances to every other point, 
-    #     by adding the distance of each k neighbor to every other point
-    #   - with this you get updated matrix M
-    #   - from eigenvectors of modified version of M, get transformation
     mf = iso.transform(x)
     mf = pd.DataFrame(mf, columns = ['c1', 'c2'])
 
@@ -92,12 +86,6 @@ if __name__ == "__main__":
 
     lle = manifold.LocallyLinearEmbedding(n_neighbors = 12, n_components = 2, method = 'standard')
     lle.fit(x)
-    # transform:
-    #   - get k neighbors of new x
-    #   - calculate weights between x and every other training point
-    #   - update W
-    #   - with modified version of W, compute eigenvalues and 
-    #     d smallest eigenvectors, use them as transformation
     mf = lle.transform(x)
     mf = pd.DataFrame(mf, columns = ['c1', 'c2'])
 
