@@ -8,7 +8,7 @@ def gaussian(data, mean, std_dev):
     return (1.0 / ((np.sqrt(2.0 * np.pi) * std_dev))) * np.exp(-((data - mean) ** 2) / (2.0 * (std_dev ** 2)))
 
 # expectation (E) step : update responsibilities, i.e.
-# posterior probabilities p(k|x), the probability of 
+# posterior probabilities p(k|x), which explain the probability of 
 # mix component k producing x 
 def e_step(data, mean, covar, mix_coef):
     R = np.array([(gaussian(x, mean, np.sqrt(covar)) * mix_coef) for x in data])
@@ -56,6 +56,7 @@ if __name__ == "__main__":
     #   - red   : [mean : -2.0, std dev : 0.8]
     #   - green : [mean : 0.0, std dev : 0.5]
     #   - blue  : [mean : 3.0, std dev : 2.0]
+    colors = ['red', 'green', 'blue']
     ground_truth = {'red' : [-5.0, 1.5], 'green' : [0.0, 0.5], 'blue' : [5.0, 2.0]}
 
     # generate data accordint to mix of gaussians
@@ -82,19 +83,30 @@ if __name__ == "__main__":
     covar = np.array([5.0, 5.0 , 5.0])
     mix_coef = np.ones(k) * (1.0 / float(k))
 
-    # evaluate log likelihood, given the parameters
-    ll = log_likelihood(data['total'], mean, covar, mix_coef)
-
-    colors = ['red', 'green', 'blue']
+    ll_old = 1.0
+    ll = 0.0
+    # i = 0
+    # while (np.abs(ll_old - ll) > 0.000000001):
     for i in xrange(500):
 
+        # plot k Gaussians w/ current parameter approx.
         if ((i % 100) == 0):
             for k, c in enumerate(colors):
                 x = np.arange(mean[k] - 2.0 * np.sqrt(covar[k]), mean[k] + 2.0 * np.sqrt(covar[k]), 0.01)
                 ax.plot(x, gaussian(x, mean[k], np.sqrt(covar[k])), color = c, linewidth = 1.0, alpha = (0.10 * ((i / 100) + 1)))
 
+        # run E step
         R = e_step(data['total'], mean, covar, mix_coef)
+        # run M step
         mean, covar, mix_coef = m_step(data['total'], R)
+
+        # evaluate log likelihood w/ updated parameters
+        ll_old = ll
+        ll = log_likelihood(data['total'], mean, covar, mix_coef)
+
+        print("ex1::em : log likelihood %.10f (%.10f)" % (ll, np.abs(ll - ll_old)))
+
+        # i += 1
 
     fig.subplots_adjust(left = None, bottom = None, right = None, top = None, wspace = 0.3, hspace = None)
     plt.savefig("ex1.pdf", bbox_inches = 'tight', format = 'pdf')
