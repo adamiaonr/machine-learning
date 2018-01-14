@@ -54,7 +54,13 @@ if __name__ == "__main__":
     #                                                = (alpha_t^k * beta_t^k) / P(X)
     #
     #     alpha_t^k = P(x_1, x_2, ..., x_t, y_t^k = 1), i.e. forward probability
-    #     beta_t^k  = P(x_(t+1), ..., x_T | y_t^k = 1), i.e. backward probability
+    #     beta_t^k  = P(x_(t+1), ..., x_T | y_t^k = 1), i.e. backward probability.
+    #
+    #   - note that in this case we don't need backward probability, since 
+    #     the forward probability already considers the full observation
+    #     sequence
+
+    print("hw5::ex2 :")
 
     # observation sequences
     joint = 0.0
@@ -107,7 +113,7 @@ if __name__ == "__main__":
     # prob of the sequence of observations
     seq_prob = np.sum(alpha, 0)
 
-    print("\nFINAL (alt):")
-    print("P([%s]) : %.3f" % ('001', seq_prob))
+    print("\nhw5::ex2 :")
+    print("\tP([%s]) : %.3f" % ('001', seq_prob))
     # probability of climbing on wed
-    print("P(C|[%s]) : %.3f" % ('001', alpha[0] / seq_prob))
+    print("\tP(C|[%s]) : %.3f" % ('001', alpha[0] / seq_prob))
